@@ -1,6 +1,7 @@
 package com.github.vitineth.game.levels.derivatives;
 
 import com.github.vitineth.game.levels.Level;
+import com.github.vitineth.game.misc.Coordinate;
 import com.github.vitineth.game.misc.utils.ImageLoader;
 
 /**
@@ -12,7 +13,7 @@ import com.github.vitineth.game.misc.utils.ImageLoader;
 public class CastleLevel extends Level {
 
     public CastleLevel(){
-        super("Kuraac Castle", ImageLoader.loadRelativeImage("/textures/maps/castle/map.png"), ImageLoader.loadRelativeImage("/textures/maps/castle/entity_overlay.png"));
+        super("Kuraac Castle", ImageLoader.loadRelativeImage("/textures/maps/castle/map.png"), ImageLoader.loadRelativeImage("/textures/maps/castle/entity_overlay.png"), new Coordinate(34, 34));
     }
 
 }

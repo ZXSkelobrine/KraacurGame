@@ -87,12 +87,25 @@ public class Entity {
         int ny = y+ySpeed;
         int ntX = nx / 16;
         int ntY = ny / 16;
-        if(currentLevel.getMap().getTiles()[ntX][ntY].isSolid()){
+        if (tileCollision(x, y, xSpeed, ySpeed, 16, currentLevel)) {
 
         }else{
             x=nx;
             y=ny;
         }
+    }
 
+
+    //Thanks to TheCherno for this method.
+    public boolean tileCollision(double x, double y, double xa, double ya, int size, Level currentLevel) {
+        boolean solid = false;
+        for (int c = 0; c < 4; c++) {
+            int xt = (((int) x + (int) xa) + c % 2 * size / 2 - 20) / 16;
+            int yt = (((int) y + (int) ya) + c / 2 * (size + 2) / 2 - 20) / 16;
+            if (currentLevel.getMap().getTiles()[xt][yt].isSolid()) {
+                solid = true;
+            }
+        }
+        return solid;
     }
 }
