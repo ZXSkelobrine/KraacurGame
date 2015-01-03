@@ -35,4 +35,12 @@ public class Coordinate {
         return x;
     }
 
+    public int getScaledX(int scale) {
+        return x * scale;
+    }
+
+    public int getScaledY(int scale) {
+        return y * scale;
+    }
+
 }

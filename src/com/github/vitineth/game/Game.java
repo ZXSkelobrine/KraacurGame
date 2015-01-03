@@ -63,8 +63,8 @@ public class Game extends Canvas implements Runnable, WindowListener {
     //Game classes
     private KeyBoard board = new KeyBoard();
     private Renderer renderer = new Renderer(WIDTH, HEIGHT);
-    private CastleLevel level = new CastleLevel();
     private Player player = new Player(new Coordinate(7, 7));
+    private CastleLevel level = new CastleLevel(player);
 
     public Game() {
         setPreferredSize(new Dimension(scale(WIDTH), scale(HEIGHT)));
