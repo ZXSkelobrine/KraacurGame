@@ -27,28 +27,45 @@ import java.lang.reflect.Field;
  */
 public class Game extends Canvas implements Runnable, WindowListener {
 
+    //Ints
+    //>Static final integers
     private static final int WIDTH = 300; //GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getWidth();//300;
     private static final int HEIGHT = WIDTH / 16 * 9;
-    private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-    private Renderer renderer = new Renderer(WIDTH, HEIGHT);
     private static final int SCALE = 2;
+    //>Final integers
     private final int ORIGIN_X = 100;
     private final int ORIGIN_Y = 100;
-    ;
-    public JFrame frame;
-    CastleLevel level = new CastleLevel();
-    Player player = new Player(new Coordinate(7, 7));
-    int xo, yo;
+    //>Regular integers
+    private int xo, yo;
+
+    //Booleans
     private boolean IS_LEAP_ENABLED;
-    private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
     private boolean running = false;
-    private Thread thread;
+
+    //Images
+    private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+
+    //Pixel arrays
+    private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
+    private int[] lastOffset = new int[]{0, 0};
+
+    //JFrames
+    public JFrame frame;
+
+    //Threads
     private Thread leapThread;
+    private Thread thread;
+
+    //Leap integration variabled
     private LeapListener listener;
     private Controller controller;
     private LeapImage currentLeapState = LeapImage.CENTER;
+
+    //Game classes
     private KeyBoard board = new KeyBoard();
-    private int[] lastOffset = new int[]{0, 0};
+    private Renderer renderer = new Renderer(WIDTH, HEIGHT);
+    private CastleLevel level = new CastleLevel();
+    private Player player = new Player(new Coordinate(7, 7));
 
     public Game() {
         setPreferredSize(new Dimension(scale(WIDTH), scale(HEIGHT)));
