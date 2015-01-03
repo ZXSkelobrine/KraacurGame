@@ -5,8 +5,6 @@ import com.github.vitineth.game.graphics.images.SpriteSheet;
 import com.github.vitineth.game.misc.Coordinate;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -28,6 +26,9 @@ public class SpriteStore {
             path = "/textures/sheets/entities/players/player1.png";
             playerSheet = new SpriteSheet(ImageIO.read(SpriteStore.class.getResource(path)), 32);
 
+            path = "/textures/sheets/entities/mobs/banished_knight.png";
+            banisedKnightSheet = new SpriteSheet(ImageIO.read(SpriteStore.class.getResource(path)), 32);
+
             loadFullSprites();
         } catch (IOException e) {
             e.printStackTrace();
@@ -37,6 +38,7 @@ public class SpriteStore {
     public static SpriteSheet main;
     public static SpriteSheet full;
     public static SpriteSheet playerSheet;
+    public static SpriteSheet banisedKnightSheet;
 
     public static Sprite grass = new Sprite(main, 0, 0, 16);
     public static Sprite dirt = new Sprite(main, 1<<4, 0, 16);
@@ -52,6 +54,7 @@ public class SpriteStore {
     public static Sprite glassStone;
 
     public static Sprite playerFront;
+    public static Sprite banishedKnightFront;
 
     private static void loadFullSprites(){
         Coordinate spriteSheet;
@@ -80,6 +83,9 @@ public class SpriteStore {
 
         spriteSheet = playerSheet.getSpriteCoordinate(0, 1);
         playerFront = new Sprite(playerSheet, spriteSheet.getX(), spriteSheet.getY(), 32);
+
+        spriteSheet = banisedKnightSheet.getSpriteCoordinate(0, 1);
+        banishedKnightFront = new Sprite(banisedKnightSheet, spriteSheet.getX(), spriteSheet.getY(), 32);
     }
 
 }

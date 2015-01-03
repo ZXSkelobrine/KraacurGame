@@ -29,4 +29,12 @@ public class Map {
         return map;
     }
 
+    public int getMapTileWidth() {
+        return map.length;
+    }
+
+    public int getMapTileHeight() {
+        return map[0].length;
+    }
+
 }

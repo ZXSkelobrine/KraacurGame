@@ -102,6 +102,10 @@ public class Entity {
         for (int c = 0; c < 4; c++) {
             int xt = (((int) x + (int) xa) + c % 2 * size / 2 - 20) / 16;
             int yt = (((int) y + (int) ya) + c / 2 * (size + 2) / 2 - 20) / 16;
+            if (xt >= currentLevel.getMap().getMapTileWidth() || xt < 0 || yt >= currentLevel.getMap().getMapTileHeight() || yt < 0) {
+                solid = true;
+                break;
+            }
             if (currentLevel.getMap().getTiles()[xt][yt].isSolid()) {
                 solid = true;
             }

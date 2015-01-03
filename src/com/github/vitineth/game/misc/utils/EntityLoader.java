@@ -1,13 +1,10 @@
 package com.github.vitineth.game.misc.utils;
 
 import com.github.vitineth.game.items.creatures.Entity;
-import com.github.vitineth.game.items.maps.Map;
-import com.github.vitineth.game.items.tiles.Tile;
-import com.github.vitineth.game.stores.TileStore;
+import com.github.vitineth.game.items.creatures.mobs.builders.BanishedKnightBuilder;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -18,12 +15,6 @@ import java.util.List;
  */
 public class EntityLoader {
 
-    private static HashMap<Integer, Entity> tileHashMap = new HashMap<Integer, Entity>();
-
-    static {
-        tileHashMap.put(0xFFFFFFFF, new Entity());
-        tileHashMap.put(0xFFFF0000, new Entity());
-    }
 
     public static List<Entity> loadEntities(BufferedImage overlay){
         List<Entity> entities = new ArrayList<Entity>();
@@ -31,9 +22,10 @@ public class EntityLoader {
         for (int x = 0; x < overlay.getWidth(); x++) {
             for (int y = 0; y < overlay.getHeight(); y++) {
                 int colour = overlay.getRGB(x, y);
-                System.out.printf("%-12s   %-7s   %-6s   %-6s   %6s%n", "A(" + overlay.getRGB(x, y) + ")", "B(" + 0xFFFF0000 + ")", "C(" + 0xFFFFFFFF + ")", "D(" + 0xFF000000 + ")", (tileHashMap.containsKey(colour) ? tileHashMap.get(colour).getClass().getSimpleName() : TileStore.nullTile.getClass().getSimpleName()));
-                if(tileHashMap.containsKey(colour)){
-                    entities.add(tileHashMap.get(colour));
+                switch (colour) {
+                    case 0xFFFFFF00:
+                        entities.add(BanishedKnightBuilder.create().setX(x).setY(y).finalise());
+                        break;
                 }
             }
             System.out.println();

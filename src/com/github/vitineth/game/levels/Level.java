@@ -54,6 +54,10 @@ public class Level {
     }
 
     public void renderMap(Renderer renderer){
+        for (int i = 0; i < entities.size(); i++) {
+            Entity current = entities.get(i);
+            current.render(0, 0, renderer);
+        }
         levelMap.renderMap(renderer);
     }
 
