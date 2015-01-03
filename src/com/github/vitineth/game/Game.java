@@ -28,18 +28,17 @@ import java.lang.reflect.Field;
 public class Game extends Canvas implements Runnable, WindowListener {
 
     //Ints
-    //>Static final integers
-    private static final int WIDTH = 300; //GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getWidth();//300;
-    private static final int HEIGHT = WIDTH / 16 * 9;
-    private static final int SCALE = 2;
-    //>Final integers
-    private final int ORIGIN_X = 100;
-    private final int ORIGIN_Y = 100;
+    //>Static integers
+    public static int WIDTH = 700; //GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getWidth();//300;
+    public static int HEIGHT = WIDTH / 16 * 9;
+    public static int SCALE = 2;
     //>Regular integers
     private int xo, yo;
+    public static int ORIGIN_X = 100;
+    public static int ORIGIN_Y = 100;
 
     //Booleans
-    private boolean IS_LEAP_ENABLED;
+    public static boolean IS_LEAP_ENABLED;
     private boolean running = false;
 
     //Images
@@ -76,29 +75,41 @@ public class Game extends Canvas implements Runnable, WindowListener {
 
     }
 
+    /////////////////////////////////////////////
+
     public static void main(String[] args) {
+        //Process the launch flags and save the results
+        Object[] glags = processLaunchFlags(args);
+        //Set each individual result.
+        Game.IS_LEAP_ENABLED = (Boolean) glags[0];
+        Game.WIDTH = (Integer) glags[1];
+        Game.HEIGHT = (Integer) glags[2];
+        Game.SCALE = (Integer) glags[3];
+        Game.ORIGIN_X = (Integer) glags[4];
+        Game.ORIGIN_Y = (Integer) glags[5];
+
+        //Create a new game.
         Game game = new Game();
-        if (args.length == 1) {
-            if (args[0].equalsIgnoreCase("-leap")) {
-                game.IS_LEAP_ENABLED = true;
-            } else {
-                game.IS_LEAP_ENABLED = false;
-            }
-        } else {
-            game.IS_LEAP_ENABLED = false;
-        }
+        //If the leap is enabled.
         if (game.IS_LEAP_ENABLED) {
-            System.out.println(System.getProperty("java.library.path"));
+            //If the java library path does not contain the path section "\LeapSDK\lib\" then
             if (!System.getProperty("java.library.path").contains("\\LeapSDK\\lib\\")) {
+                //Ask the user to input the location of the files.
                 String input = JOptionPane.showInputDialog("Please enter the path to the leap native files.");
+                //Create a file from their input.
                 File file = new File(input);
+                //If it exists
                 if (file.exists()) {
+                    //And if it is a directory
                     if (file.isDirectory()) {
+                        //Then reset the path
                         resetLibraryPath(input);
                     } else {
+                        //Otherwise tell the user of the mistake
                         JOptionPane.showMessageDialog(null, "The specified path is not a directory.");
                     }
                 } else {
+                    //Otherwise tell the user of the mistake
                     JOptionPane.showMessageDialog(null, "The specified path does not exist.");
                 }
             }
@@ -130,6 +141,70 @@ public class Game extends Canvas implements Runnable, WindowListener {
             e.printStackTrace();
         }
     }
+
+    private static Object[] processLaunchFlags(String[] args) {
+        Object[] results = new Object[6];
+        for (String s : args) {
+            if (s.matches("-leap:(?:tru|fals)e")) {
+                boolean result = Boolean.parseBoolean(s.replace("-leap:", ""));
+                results[0] = result;
+                System.out.println("Leap set to: " + result);
+            } else if (s.matches("-size:[0-9]*,[0-9]*")) {
+                String[] split = s.replace("-size:", "").split(",");
+                int width = Integer.parseInt(split[0]);
+                int height = Integer.parseInt(split[1]);
+                results[1] = width;
+                results[2] = height;
+                System.out.println("Size (double arg) has been set to: (" + width + ", " + height + ")");
+            } else if (s.matches("-size:[0-9]*")) {
+                int width = Integer.parseInt(s.replace("-size:", ""));
+                int height = width / 16 * 9;
+                results[1] = width;
+                results[2] = height;
+                System.out.println("Size (single arg) has been set to: (" + width + ", " + height + "[gen])");
+            } else if (s.matches("-width:[0-9]*")) {
+                int width = Integer.parseInt(s.replace("-width:", ""));
+                results[1] = width;
+                System.out.println("Width has been set to: " + width);
+            } else if (s.matches("-height:[0-9]*")) {
+                int height = Integer.parseInt(s.replace("-height:", ""));
+                results[2] = height;
+                System.out.println("Height has been set to: " + height);
+            } else if (s.matches("-scale:[0-9]*")) {
+                int scale = Integer.parseInt(s.replace("-scale:", ""));
+                results[3] = scale;
+                System.out.println("Scale has been set to: " + scale);
+            } else if (s.matches("-originx:[0-9]*")) {
+                int originx = Integer.parseInt(s.replace("-originx:", ""));
+                results[4] = originx;
+
+            } else if (s.matches("-originy:[0-9]*")) {
+                int originy = Integer.parseInt(s.replace("-originy:", ""));
+                results[5] = originy;
+            } else {
+                System.err.println("The given argument '" + s + "' is not known by the program. Here are the possible flags");
+                System.err.println("\t-leap:boolean  # A true or false value whether to enable the Leap Motion Controller support.");
+                System.err.println("\t-size:int,int  # Two ints (whole numbers) for the width and height in this format: -size:width,height");
+                System.err.println("\t-size:int      # An int to represent the width. The height it then calculated using the calculation: WIDTH / 16 * 9 if the height is not specified");
+                System.err.println("\t-width:int     # An int to represent the width. The height it then calculated using the calculation: WIDTH / 16 * 9 if the height is not specified");
+                System.err.println("\t-height:int    # An int to represent the height. The width it then calculated using the calculation: (HEIGHT / 9) * 16 if the width is not specified.");
+                System.err.println("\t-scale:int     # An int to represent the scale");
+                System.err.println("\t-originx:int   # An int to represent where the window should appear on the x axis");
+                System.err.println("\t-originy:int   # An int to represent where the window should appear on the x axis");
+                System.err.println("The program will now exit");
+                System.exit(1);
+            }
+        }
+        if (results[0] == null) results[0] = false;
+        if (results[1] == null) results[1] = results[2] == null ? 700 : (((Integer) results[2]).intValue() * 9) / 16;
+        if (results[2] == null) results[2] = ((Integer) results[1]).intValue() / 16 * 9;
+        if (results[3] == null) results[3] = 2;
+        if (results[4] == null) results[4] = 100;
+        if (results[5] == null) results[5] = 100;
+        return results;
+    }
+
+    /////////////////////////////////////////
 
     public static int getScreenWidth() {
         return WIDTH;
