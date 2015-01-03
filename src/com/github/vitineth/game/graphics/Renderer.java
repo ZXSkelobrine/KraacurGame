@@ -1,5 +1,6 @@
 package com.github.vitineth.game.graphics;
 
+import com.github.vitineth.game.Game;
 import com.github.vitineth.game.graphics.images.Sprite;
 import com.github.vitineth.game.items.creatures.Entity;
 import com.github.vitineth.game.items.creatures.players.Player;
@@ -13,11 +14,11 @@ import com.github.vitineth.game.items.tiles.Tile;
  */
 public class Renderer {
 
-    private int width, height;
     public int[] pixels;
     public int xOffset, yOffset;
     int xtime = 0, ytime = 0;
     int counter = 0;
+    private int width, height;
 
     public Renderer(int width, int height) {
         this.width = width;
@@ -47,16 +48,16 @@ public class Renderer {
     }
 
     public void update(Player player){
-        if(player.getX() >= (650+xOffset)){
+        if (player.getX() >= ((Game.getScreenWidth() - 10) + xOffset)) {
             xOffset+=2;
         }
-        if(player.getY() >= (350+yOffset)){
+        if (player.getY() >= ((Game.getScreenHeight() - 10) + yOffset)) {
             yOffset+=2;
         }
-        if(player.getX() <= (xOffset+5)){
+        if (player.getX() <= (xOffset + 40)) {
             xOffset-=2;
         }
-        if(player.getY() <= (yOffset+5)){
+        if (player.getY() <= (yOffset + 40)) {
             yOffset-=2;
         }
     }

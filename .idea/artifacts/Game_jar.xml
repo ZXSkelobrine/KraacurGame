@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact name="Game:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Game_jar</output-path>
+    <root id="root">
+      <element id="archive" name="Game.jar">
+        <element id="module-output" name="Game" />
+      </element>
+      <element id="library" level="project" name="LeapJava" />
+    </root>
+  </artifact>
+</component>
