@@ -51,6 +51,8 @@ public class SpriteStore {
     public static Sprite fullGlass;
     public static Sprite fullStone;
 
+    public static Sprite blankSprite;
+
     public static Sprite glassStone;
 
     public static Sprite playerFront;
@@ -79,6 +81,10 @@ public class SpriteStore {
 
         spriteSheet = full.getSpriteCoordinate(7, 0);
         glassStone = new Sprite(full, spriteSheet.getX(), spriteSheet.getY(), 16);
+
+        spriteSheet = full.getSpriteCoordinate(7, 7);
+        blankSprite = new Sprite(full, spriteSheet.getX(), spriteSheet.getY(), 16);
+
 
 
         spriteSheet = playerSheet.getSpriteCoordinate(0, 1);

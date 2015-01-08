@@ -14,7 +14,7 @@ import com.github.vitineth.game.misc.utils.ImageLoader;
 public class SpawnLevel extends Level{
 
     public SpawnLevel(Player player) {
-        super("Spawn", ImageLoader.loadRelativeImage("/textures/maps/spawn/map.png"), ImageLoader.loadRelativeImage("/textures/maps/spawn/entity_overlay.png"), new Coordinate(1, 1), player);
+        super("Spawn", ImageLoader.loadRelativeImage("/textures/maps/spawn/map.png"), ImageLoader.loadRelativeImage("/textures/maps/spawn/entity_overlay.png"), ImageLoader.loadRelativeImage("/textures/maps/spawn/background.png"), new Coordinate(1, 1), player);
     }
 
 }

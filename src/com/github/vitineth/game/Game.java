@@ -42,7 +42,7 @@ public class Game extends Canvas implements Runnable, WindowListener {
     private boolean running = false;
 
     //Images
-    private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+    private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
 
     //Pixel arrays
     private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
@@ -298,8 +298,7 @@ public class Game extends Canvas implements Runnable, WindowListener {
             return;
         }
 
-        renderer.clear();
-        renderer.render();
+        renderer.clear(level.getBackground());
 
         level.renderMap(renderer);
         player.render(3, 3, renderer);
@@ -310,6 +309,7 @@ public class Game extends Canvas implements Runnable, WindowListener {
 
         Graphics g = bs.getDrawGraphics();
         //
+        g.drawImage(level.getBackground(), 0, 0, getWidth(), getHeight(), null);
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
         if (IS_LEAP_ENABLED) {
             g.drawImage(currentLeapState.getRawImage(), getWidth() - 100, 0, 100, 100, null);

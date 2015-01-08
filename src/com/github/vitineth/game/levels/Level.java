@@ -22,25 +22,28 @@ public class Level {
     private String name;
     private BufferedImage map;
     private BufferedImage entityOverlay;
+    private BufferedImage background;
     private Map levelMap;
     private Coordinate spawnLocation;
     private Player player;
 
     private List<Entity> entities;
 
-    public Level(String name, BufferedImage map, BufferedImage entityOverlay, Coordinate spawnLocation, Player player) {
+    public Level(String name, BufferedImage map, BufferedImage entityOverlay, BufferedImage background, Coordinate spawnLocation, Player player) {
         this.name = name;
         this.map = map;
         this.entityOverlay = entityOverlay;
         this.spawnLocation = spawnLocation;
+        this.background = background;
         this.player = player;
         loadLevel();
     }
 
-    public Level(String name, BufferedImage map, BufferedImage entityOverlay, Player player) {
+    public Level(String name, BufferedImage map, BufferedImage entityOverlay, BufferedImage background, Player player) {
         this.name = name;
         this.map = map;
         this.entityOverlay = entityOverlay;
+        this.background = background;
         this.spawnLocation = new Coordinate();
         this.player = player;
         loadLevel();
@@ -87,5 +90,9 @@ public class Level {
 
     public List<Entity> getEntities() {
         return entities;
+    }
+
+    public BufferedImage getBackground() {
+        return background;
     }
 }

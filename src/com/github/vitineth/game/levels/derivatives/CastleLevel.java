@@ -17,7 +17,7 @@ public class CastleLevel extends Level {
     private boolean isFirstRender = true;
 
     public CastleLevel(Player player) {
-        super("Kuraac Castle", ImageLoader.loadRelativeImage("/textures/maps/castle/map.png"), ImageLoader.loadRelativeImage("/textures/maps/castle/entity_overlay.png"), new Coordinate(34, 34), player);
+        super("Kuraac Castle", ImageLoader.loadRelativeImage("/textures/maps/castle/map.png"), ImageLoader.loadRelativeImage("/textures/maps/castle/entity_overlay.png"), ImageLoader.loadRelativeImage("/textures/maps/castle/background.png"), new Coordinate(40, 40), player);
     }
 
     @Override

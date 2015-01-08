@@ -27,6 +27,7 @@ public class MapLoader {
         tileHashMap.put(0xFFFFFF00, TileStore.woodFloorTile);
         tileHashMap.put(0xFF1E7172, TileStore.glassTile(SpriteStore.glassStone));
         tileHashMap.put(0xFF9f5353, TileStore.stoneTile);
+        tileHashMap.put(0xFFABCDEF, TileStore.blankTile);
     }
 
     public static Map loadMap(BufferedImage image){
